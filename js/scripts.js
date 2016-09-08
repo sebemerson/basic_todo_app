@@ -54,6 +54,11 @@
 	var $ = __webpack_require__(2);
 	'use strict';
 
+	//globals
+	var escKey = 27;
+	var enterkey = 13;
+
+
 	//utility object
 
 	var util = {
@@ -64,29 +69,53 @@
 	        var store = localStorage.getItem(namespace);
 	        return (store && JSON.parse(store)) || [];
 	    }
-	  }
+	  },
+	    randomId: function () {
+				/*jshint bitwise:false */
+				var i, random;
+				var randomId = '';
+
+				for (i = 0; i < 32; i++) {
+					random = Math.random() * 16 | 0;
+					if (i === 8 || i === 12 || i === 16 || i === 20) {
+						randomId += '-';
+					}
+					randomId += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random)).toString(16);
+				}
+
+				return randomId;
+			}
 	};
 
 	var app = {
 
 	    init: function(){
 	        this.todos = util.store('todos-store');
+	        this.todoTemplate = Handlebars.compile($('#todoListResults-template').html());
 	        this.bindEvents();
+
 	    },
 	    bindEvents: function (){
 	        $('#newTodoInput').on('keyup', this.createNewTodo.bind(this));
 	    },
 	    display: function(){
+	      var allTodos = this.todos;    
 	      util.store('todos-store', this.todos);
-	    //   $('#todoListResults').html(this.todoListTemplate(todos));
+	      $('#todoListResults').html(this.todoTemplate(allTodos));
 	    },
-	    createNewTodo: function (){
-	        this.todos.push({
-	            id: todo,
-	            title: val,
-	            
-	        });
+	    createNewTodo: function (e){
+	        var todoInput = e.target.value.trim();
+	        //return nothing if enterKey not pressed or no value.
+	        if (e.which !== enterkey || !todoInput) {   
+					return;
+				}
 	        
+	        this.todos.push({
+	            id: util.randomId(),
+	            title: todoInput,
+	            completed: false
+	        });
+	        console.log(this.todos);
 	        this.display();
 	    }
 	    
