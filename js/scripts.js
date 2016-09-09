@@ -84,7 +84,24 @@
 				}
 
 				return randomId;
-			}
+			},
+			findElIndex: function(el){
+			//take the id from element clicked and save to var id.
+			//save array (this.todos) to var todos
+			//save length of array to var i.
+			//while loop runs iff i is more than 1. If greater than 0, array items compared to id of clicked el.
+			//loop stops when arr matches id. 
+			//position returned.
+				var id = $(el).closest('div').data('id');
+				var todos = app.todos;
+				var i = todos.length;
+
+				while (i--) {
+					if (todos[i].id === id) {
+						return i;
+					}
+				}
+		}
 	};
 
 	var app = {
@@ -93,34 +110,76 @@
 	        this.todos = util.store('todos-store');
 	        this.todoTemplate = Handlebars.compile($('#todoListResults-template').html());
 	        this.bindEvents();
-
+	        this.display();
 	    },
 	    bindEvents: function (){
 	        $('#newTodoInput').on('keyup', this.createNewTodo.bind(this));
+	        $('#toggleAllButton').on('click', this.toggleAll.bind(this));
+	        $('#todoListResults')
+	        .on('click','.deleteButton', this.deleteTodo.bind(this))
+	        .on('change','.toggleCompleted', this.toggleCompleted.bind(this));
 	    },
 	    display: function(){
 	      var allTodos = this.todos;    
-	      util.store('todos-store', this.todos);
 	      $('#todoListResults').html(this.todoTemplate(allTodos));
+	      util.store('todos-store', this.todos);
 	    },
 	    createNewTodo: function (e){
-	        var todoInput = e.target.value.trim();
+	        var $todoInput = $(e.target);
+	        var trimmedInput = $todoInput.val().trim();
 	        //return nothing if enterKey not pressed or no value.
-	        if (e.which !== enterkey || !todoInput) {   
+	        if (e.which !== enterkey || !trimmedInput) {   
 					return;
 				}
 	        
 	        this.todos.push({
 	            id: util.randomId(),
-	            title: todoInput,
+	            title: trimmedInput,
 	            completed: false
 	        });
-	        console.log(this.todos);
+	        $todoInput.val('');
+	        this.display();
+	    },
+	    deleteTodo: function(e){//
+	        this.todos.splice(util.findElIndex(e.target), 1);
+			this.display();
+	    },
+	    getActiveTodos: function(){
+	        return this.todos.filter(function (todo) {
+					return !todo.completed;
+				});  
+	    },
+	    getCompletedTodos: function(){
+	        return this.todos.filter(function(todo) {
+	            return todo.completed;
+	        });
+	    },
+	    toggleCompleted: function(e){
+	        var i = util.findElIndex(e.target);
+	        this.todos[i].completed = !this.todos[i].completed;
+	        this.display();
+	    },
+	    toggleAll: function(e){
+	      var activeTodos = this.getActiveTodos();
+	      var completedTodos = this.getCompletedTodos();
+	      var totalTodos = this.todos.length;
+	      
+	      if (completedTodos.length === totalTodos){ // In case everything is true (completed), make all false
+	          for(var i = 0; i < this.todos.length; i++) {
+	              this.todos[i].completed = false;
+	          }
+	      } else{ //otherwise make everything true
+	        for(var i = 0; i < totalTodos; i++){
+	          this.todos[i].completed = true;
+	        }
+	      }
 	        this.display();
 	    }
-	    
+	   
 	};
 	app.init();
+
+
 
 /***/ },
 /* 2 */

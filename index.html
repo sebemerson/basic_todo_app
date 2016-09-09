@@ -9,32 +9,25 @@
         </head>
             <h1>TO DO List</h1>
             <div>
-                <button>Toggle All</button>
+                <button id="toggleAllButton">Toggle All</button>
             </div>
             <div>
                 <input id="newTodoInput" type="text" />
             </div>    
             <div>
-                
                 <div id="todoListResults">
        
                 </div>
             </div>
             <script id="todoListResults-template" type="text/x-handlebars-template">
 			{{#this}}
-			<li><h1>{{title}}</h1></li>
-			<li>{{id}}</li>
-			
+			<div  class="todo-item" data-id="{{id}}">
+					<input class="toggleCompleted" type="checkbox" {{#if completed}}checked{{/if}}>
+			        <h1 {{#if completed}}class="completed"{{/if}}>{{title}}</h1>
+			        <button class="deleteButton">X</button>
+            </div>			
 		    {{/this}}
 		</script>
-        <!--<script id="todoListResults-template" type="text/x-handlebars-template">
-                {{#this}}
-                <div class="todo-div">
-                    <h1>{{title}}</h1>
-                    <p>{{completed}}</p>
-                </div>
-                {{/this}}
-        </script>-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
         <script type="text/javascript" src="js/scripts.js"></script>
     </body>
