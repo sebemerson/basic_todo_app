@@ -66,8 +66,8 @@
 	        if(arguments.length > 1){
 	            return localStorage.setItem(namespace, JSON.stringify(data));
 	        } else {
-	        var store = localStorage.getItem(namespace);
-	        return (store && JSON.parse(store)) || [];
+	            var store = localStorage.getItem(namespace);
+	            return (store && JSON.parse(store)) || [];
 	    }
 	  },
 	    randomId: function () {
@@ -86,8 +86,8 @@
 				return randomId;
 			},
 			findElIndex: function(el){
-			//take the id from element clicked and save to var id.
-			//save array (this.todos) to var todos
+			//take the id from closest div to element clicked and save to var id.
+			//save array (app.todos) to var todos
 			//save length of array to var i.
 			//while loop runs iff i is more than 1. If greater than 0, array items compared to id of clicked el.
 			//loop stops when arr matches id. 
@@ -117,12 +117,24 @@
 	        $('#toggleAllButton').on('click', this.toggleAll.bind(this));
 	        $('#todoListResults')
 	        .on('click','.deleteButton', this.deleteTodo.bind(this))
-	        .on('change','.toggleCompleted', this.toggleCompleted.bind(this));
+	        .on('change','.toggleCompleted', this.toggleCompleted.bind(this))
+	        .on('dblclick', '.todo-item', this.changeTodoTextInput.bind(this))
+	        .on('blur', '.changeTodoTextInput', this.blurOutUpdate.bind(this));
 	    },
 	    display: function(){
 	      var allTodos = this.todos;    
 	      $('#todoListResults').html(this.todoTemplate(allTodos));
 	      util.store('todos-store', this.todos);
+	      $('#todoCounter').html(this.todoCounterText());
+	    },
+	    todoCounterText: function(){
+	      var todoCounterText = "";
+	      if(this.getActiveTodos().length === 1){
+	          var todoCounterText = '<p>You have ' + this.getActiveTodos().length + ' task to do!</P>';
+	      } else {
+	          var todoCounterText = '<p>You have ' + this.getActiveTodos().length + ' tasks to do!</P>';
+	      }
+	      return todoCounterText;
 	    },
 	    createNewTodo: function (e){
 	        var $todoInput = $(e.target);
@@ -160,7 +172,6 @@
 	        this.display();
 	    },
 	    toggleAll: function(e){
-	      var activeTodos = this.getActiveTodos();
 	      var completedTodos = this.getCompletedTodos();
 	      var totalTodos = this.todos.length;
 	      
@@ -174,7 +185,24 @@
 	        }
 	      }
 	        this.display();
+	    },
+	    changeTodoTextInput: function(e){
+	     $(e.target).find('.changeTodoTextInput').addClass('changeTodoTextActive').focus();
+	     $(e.target).find('.todoText').addClass('todoTextInactive');
+	    
+	    },
+	    blurOutUpdate: function(e) {//take value of newTodoInput input, find the original todo text and replace it with new value when .blur
+	        var newTodoInput = $(e.target).val(); 
+	        var origText = $(e.target).closest('div');
+	        var i = util.findElIndex(origText);
+	        this.todos[i].title = newTodoInput;
+	        
+	        if(!newTodoInput){ // If there is no value, delete todo
+	            this.deleteTodo(e);
+	        }
+	        this.display();
 	    }
+	   
 	   
 	};
 	app.init();
