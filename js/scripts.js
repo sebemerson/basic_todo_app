@@ -47,6 +47,7 @@
 	__webpack_require__(1);
 
 
+
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
@@ -58,6 +59,10 @@
 	var escKey = 27;
 	var enterkey = 13;
 
+
+	Handlebars.registerHelper('eq', function (a, b, options) {
+			return a === b ? options.fn(this) : options.inverse(this);
+		});
 
 	//utility object
 
@@ -109,8 +114,16 @@
 	    init: function(){
 	        this.todos = util.store('todos-store');
 	        this.todoTemplate = Handlebars.compile($('#todoListResults-template').html());
+	        this.displayOptionsTemplate = Handlebars.compile($('#displayOptions-template').html());
 	        this.bindEvents();
-	        this.display();
+	       
+	        
+	        new Router({
+					'/:filter': function (filter) {
+						this.filter = filter;
+						this.display();
+					}.bind(this)
+				}).init('/all');
 	    },
 	    bindEvents: function (){
 	        $('#newTodoInput').on('keyup', this.createNewTodo.bind(this));
@@ -122,8 +135,10 @@
 	        .on('blur', '.changeTodoTextInput', this.blurOutUpdate.bind(this));
 	    },
 	    display: function(){
-	      var allTodos = this.todos;    
+	      var allTodos = this.getFilteredTodos();    
 	      $('#todoListResults').html(this.todoTemplate(allTodos));
+	      var displayOptionsTemplate = this.displayOptionsTemplate({filter: this.filter});
+	      $('#displayOptions').html(displayOptionsTemplate);
 	      util.store('todos-store', this.todos);
 	      $('#todoCounter').html(this.todoCounterText());
 	    },
@@ -136,6 +151,17 @@
 	      }
 	      return todoCounterText;
 	    },
+	    getFilteredTodos: function () {
+				if (this.filter === 'active') {
+					return this.getActiveTodos();
+				}
+
+				if (this.filter === 'completed') {
+					return this.getCompletedTodos();
+				}
+
+				return this.todos;
+		},
 	    createNewTodo: function (e){
 	        var $todoInput = $(e.target);
 	        var trimmedInput = $todoInput.val().trim();

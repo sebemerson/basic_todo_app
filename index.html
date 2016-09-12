@@ -16,10 +16,13 @@
             </div>    
             <div>
                 <div id="todoCounter">
-                    
+                <!--The number of outstanding tasks will display here-->
+                </div>
+                <div id="displayOptions">
+                <!--The different display options for todos will be displayed here e.g. all, active, completed-->
                 </div>
                 <div id="todoListResults">
-       
+                <!--The todo items (individual divs) will be displayed here in a row-->
                 </div>
             </div>
             <script id="todoListResults-template" type="text/x-handlebars-template">
@@ -32,7 +35,21 @@
             </div>			
 		    {{/this}}
 		</script>
+		<script id="displayOptions-template" type="text/x-handlebars-template">
+			<ul id="filters">
+				<li>
+					<a {{#eq filter 'all'}}class="selected"{{/eq}} href="#/all">All</a>
+				</li>
+				<li>
+					<a {{#eq filter 'active'}}class="selected"{{/eq}}href="#/active">Active</a>
+				</li>
+				<li>
+					<a {{#eq filter 'completed'}}class="selected"{{/eq}}href="#/completed">Completed</a>
+				</li>
+			</ul>
+		</script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+        <script src="js/director.js"></script>
         <script type="text/javascript" src="js/scripts.js"></script>
     </body>
 </html>
