@@ -131,8 +131,9 @@
 	        $('#todoListResults')
 	        .on('click','.deleteButton', this.deleteTodo.bind(this))
 	        .on('change','.toggleCompleted', this.toggleCompleted.bind(this))
-	        .on('dblclick', '.todo-item', this.changeTodoTextInput.bind(this))
-	        .on('blur', '.changeTodoTextInput', this.blurOutUpdate.bind(this));
+	        .on('dblclick', 'label', this.changeTodoTextInput.bind(this))
+	        .on('blur', '.changeTodoTextInput', this.blurOutUpdate.bind(this))
+	        .on('keyup', '.changeTodoTextInput', this.enterkeyUpdate.bind(this));
 	    },
 	    display: function(){
 	      var allTodos = this.getFilteredTodos();    
@@ -213,9 +214,9 @@
 	        this.display();
 	    },
 	    changeTodoTextInput: function(e){
-	     $(e.target).find('.changeTodoTextInput').addClass('changeTodoTextActive').focus();
-	     $(e.target).find('.todoText').addClass('todoTextInactive');
-	    
+	        var $parentOfClicked = $(e.target).closest('div');
+	    	$parentOfClicked.find('.changeTodoTextInput').addClass('changeTodoTextActive').focus();
+	    	$parentOfClicked.find('.todoText').addClass('todoTextInactive');
 	    },
 	    blurOutUpdate: function(e) {//take value of newTodoInput input, find the original todo text and replace it with new value when .blur
 	        var newTodoInput = $(e.target).val(); 
@@ -225,8 +226,17 @@
 	        
 	        if(!newTodoInput){ // If there is no value, delete todo
 	            this.deleteTodo(e);
-	        }
+	        } 
+	        
 	        this.display();
+	    },
+	    enterkeyUpdate: function(e){
+	        
+	        if (e.which == enterkey) {
+	            
+	           this.blurOutUpdate(e);
+	        }
+	    
 	    }
 	   
 	   

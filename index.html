@@ -8,31 +8,35 @@
             <link rel="stylesheet" href="css/styles.css" type="text/css" />
         </head>
             <h1>TO DO List</h1>
-            <div>
-                <button id="toggleAllButton">Toggle All</button>
-            </div>
-            <div>
-                <input id="newTodoInput" type="text" />
-            </div>    
-            <div>
+            <div class="todo-app-controls">
+                <div>
+                    <button id="toggleAllButton">Toggle All</button>
+                </div>
+                <div>
+                    <input id="newTodoInput" type="text" />
+                </div>    
+            
                 <div id="todoCounter">
-                <!--The number of outstanding tasks will display here-->
+                    <!--The number of outstanding tasks will display here-->
                 </div>
                 <div id="displayOptions">
-                <!--The different display options for todos will be displayed here e.g. all, active, completed-->
-                </div>
-                <div id="todoListResults">
-                <!--The todo items (individual divs) will be displayed here in a row-->
+                    <!--The different display options for todos will be displayed here e.g. all, active, completed-->
                 </div>
             </div>
+                <div id="todoListResults">
+                    <!--The todo items (individual divs) will be displayed here in a row-->
+                </div>
+
             <script id="todoListResults-template" type="text/x-handlebars-template">
 			{{#this}}
+			<div>
 			<div  class="todo-item" data-id="{{id}}">
-					<input class="toggleCompleted" type="checkbox" {{#if completed}}checked{{/if}}>
-			        <h1 class="todoText{{#if completed}} completed{{/if}}">{{title}}</h1>
+			        <label class="todoText{{#if completed}} completed {{/if}}">{{title}}</label>
 			        <input class="changeTodoTextInput" value="{{title}}">
+			        <input class="toggleCompleted" type="checkbox" {{#if completed}}checked{{/if}}>
 			        <button class="deleteButton">X</button>
-            </div>			
+            </div>
+            </div>
 		    {{/this}}
 		</script>
 		<script id="displayOptions-template" type="text/x-handlebars-template">
