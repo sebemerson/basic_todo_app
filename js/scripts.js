@@ -146,9 +146,9 @@
 	    todoCounterText: function(){
 	      var todoCounterText = "";
 	      if(this.getActiveTodos().length === 1){
-	          var todoCounterText = '<p>You have ' + this.getActiveTodos().length + ' task to do!</P>';
+	          var todoCounterText = '<p>You currently have ' + this.getActiveTodos().length + ' task to do!</P>';
 	      } else {
-	          var todoCounterText = '<p>You have ' + this.getActiveTodos().length + ' tasks to do!</P>';
+	          var todoCounterText = '<p>You currently have ' + this.getActiveTodos().length + ' tasks to do!</P>';
 	      }
 	      return todoCounterText;
 	    },
