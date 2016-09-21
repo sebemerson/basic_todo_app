@@ -17,15 +17,15 @@
                     <div id="displayOptions">
                         <!--different display options will be displayed here e.g. all, active, completed-->
                     </div>
-                    
                 </div>
             </div>
         </div><!--End Main Wrapper-->
                 <div id="todoCounter">
                     <!--The number of outstanding tasks will display here-->
                 </div>
-                <div class="toggleAll-div">
-                        <button id="toggleAllButton">All Complete?</button>
+                <div class="toggle-div">
+                    <button id="toggleAllButton">All Done</button>
+                    <button id="deleteAllButton">Delete All</button>
                 </div>
                 <div id="todoListResults">
                     <!--The todo items will be displayed here in a row-->
@@ -33,11 +33,11 @@
             <script id="todoListResults-template" type="text/x-handlebars-template">
 			{{#this}}
 			<div>
-			<div  class="todo-item" data-id="{{id}}">
+			<div class="todo-item" data-id="{{id}}">
 			        <label class="todoText{{#if completed}} completed {{/if}}">{{title}}</label>
 			        <input class="changeTodoTextInput" value="{{title}}">
-			        <input class="toggleCompleted" type="checkbox" {{#if completed}}checked{{/if}}>
-			        <button class="deleteButton">X</button>
+			        <button class="toggleCompleted">&#10004;</button>
+			        <button class="deleteButton">&#10006;</button>
             </div>
             </div>
 		    {{/this}}
@@ -60,3 +60,5 @@
         <script type="text/javascript" src="js/scripts.js"></script>
     </body>
 </html>
+
+<!--<input class="toggleCompleted" type="checkbox" {{#if completed}}checked{{/if}}>-->

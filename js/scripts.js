@@ -130,7 +130,7 @@
 	        $('#toggleAllButton').on('click', this.toggleAll.bind(this));
 	        $('#todoListResults')
 	        .on('click','.deleteButton', this.deleteTodo.bind(this))
-	        .on('change','.toggleCompleted', this.toggleCompleted.bind(this))
+	        .on('click','.toggleCompleted', this.toggleCompleted.bind(this))
 	        .on('dblclick', 'label', this.changeTodoTextInput.bind(this))
 	        .on('blur', '.changeTodoTextInput', this.blurOutUpdate.bind(this))
 	        .on('keyup', '.changeTodoTextInput', this.enterkeyUpdate.bind(this));
@@ -146,9 +146,9 @@
 	    todoCounterText: function(){
 	      var todoCounterText = "";
 	      if(this.getActiveTodos().length === 1){
-	          var todoCounterText = '<p>You currently have ' + this.getActiveTodos().length + ' task to do!</P>';
+	          var todoCounterText = '<p>' + '<strong>' + this.getActiveTodos().length + '</strong>' + ' task to do</P>';
 	      } else {
-	          var todoCounterText = '<p>You currently have ' + this.getActiveTodos().length + ' tasks to do!</P>';
+	          var todoCounterText = '<p>' + '<strong>' + this.getActiveTodos().length + '</strong>' + ' tasks to do</P>';
 	      }
 	      return todoCounterText;
 	    },
@@ -207,8 +207,8 @@
 	              this.todos[i].completed = false;
 	          }
 	      } else{ //otherwise make everything true
-	        for(var i = 0; i < totalTodos; i++){
-	          this.todos[i].completed = true;
+	          for(var i = 0; i < totalTodos; i++){
+	              this.todos[i].completed = true;
 	        }
 	      }
 	        this.display();
