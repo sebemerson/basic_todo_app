@@ -128,6 +128,7 @@
 	    bindEvents: function (){
 	        $('#newTodoInput').on('keyup', this.createNewTodo.bind(this));
 	        $('#toggleAllButton').on('click', this.toggleAll.bind(this));
+	        $('#deleteAllButton').on('click', this.deleteAll.bind(this));
 	        $('#todoListResults')
 	        .on('click','.deleteButton', this.deleteTodo.bind(this))
 	        .on('click','.toggleCompleted', this.toggleCompleted.bind(this))
@@ -198,7 +199,7 @@
 	        this.todos[i].completed = !this.todos[i].completed;
 	        this.display();
 	    },
-	    toggleAll: function(e){
+	    toggleAll: function(){
 	      var completedTodos = this.getCompletedTodos();
 	      var totalTodos = this.todos.length;
 	      
@@ -212,6 +213,13 @@
 	        }
 	      }
 	        this.display();
+	    },
+	    deleteAll: function(){
+	        
+	       for(var i = 0; i < this.todos.length; i++){
+	           this.todos.splice(this.todos[i]);
+	       }
+	       this.display();
 	    },
 	    changeTodoTextInput: function(e){
 	        var $parentOfClicked = $(e.target).closest('div');

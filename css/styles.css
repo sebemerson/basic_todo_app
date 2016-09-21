@@ -70,24 +70,8 @@
    font-weight: 900;
    src: local("Roboto Black"),local(Roboto-Black),url(//fonts.gstatic.com/s/roboto/v15/mnpfi9pxYH-Go5UiibESIvY6323mHUZFJMgTvxaG2iE.eot?#) format("eot"),url(//fonts.gstatic.com/s/roboto/v15/mnpfi9pxYH-Go5UiibESIltXRa8TVwTICgirnJhmVJw.woff2) format("woff2"),url(//fonts.gstatic.com/s/roboto/v15/mnpfi9pxYH-Go5UiibESIj8E0i7KZn-EPnyo3HZu7kw.woff) format("woff");
 }
-                                
-                                
-                                /*Mobile Max-Width 320px*/
-                                
-                                
-                                /*Mobile Min-Width 375px*/
-                                
-                                
-                                /*Mobile Max-Width 768px*/
-                                
-                                
-                                /*Mobile Max-Width 1024px*/
-                                
-                                
-                                /*Mobile Max-Width 1300px*/
-                                
-
-/*Universal Styles*/
+ /*Mobile Max-Width 320px*/
+ /*Universal Styles*/
 body{
    font-family: Roboto; 
    margin:0;
@@ -97,11 +81,10 @@ a {
     text-decoration: none;
     color: inherit;
 }
-
 .controlpanel-wrapper{
     width: 100%;
     margin: 0 auto;
-    padding:0;
+    padding: 0 0 30px 0;
     background-color: #FA8072;
     color: white;
 }
@@ -112,7 +95,6 @@ a {
     margin: 0;
     padding: 30px 0;
 }
-                
                 
 /*Controls*/
 .todo-app-controls{
@@ -142,7 +124,6 @@ a {
 #newTodoInput{
     margin: 0;
     padding:0;
-    width: 300px;
     height: 40px;
     font-size: 22px;
     text-align: center;
@@ -160,7 +141,7 @@ a {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    padding: 30px 0;
+    padding: 10px 0;
 }
 #displayOptions ul{
     display: -webkit-box;
@@ -174,12 +155,11 @@ a {
     padding: 0;
 }
 #displayOptions li {
-    font-size: 16px;
+    font-size: 18px;
     padding: 0 20px;
     text-align: center;
     text-transform: uppercase;
     font-weight: bold;
-    
 }
 #displayOptions a {
     border-bottom: 1px solid #FA8072;
@@ -188,17 +168,14 @@ a {
     border-bottom: 3px solid white;
     -webkit-transition: border 0.7s ease;
     transition: border 0.7s ease;
-    
 }
-
 #todoCounter{
-   padding: 30px 0;
+   padding: 50px 0;
    text-align: center;
 }
 #todoCounter p{
     margin: 0;
     text-transform: uppercase;
-    font-weight: 22px;
 }
 .toggle-div{
    text-align: center;
@@ -207,20 +184,33 @@ a {
     padding: 8px;
     font-size: 14px;
     width: 105px;
-    background-color: transparent;
+    background-color: #7dc6c6;
     margin: 5px;
     text-transform: uppercase;
     cursor: pointer;
+    border-radius: 42px;
+    border: none;
+    outline: none;
+    color: white;
+}
+#toggleAllButton:hover{
+    box-shadow: 0 3px 20px -3px rgba(0,0,0,.75); 
 }
 #deleteAllButton{
     padding: 8px;
     font-size: 14px;
     width:105px;
-    background-color: transparent;
-    border: 2px lightgray outset;
+    background-color: #7dc6c6;
     margin: 5px;
     text-transform: uppercase;
     cursor: pointer;
+    border-radius: 42px;
+    border: none;
+    outline: none;
+    color: white;
+}
+#deleteAllButton:hover{
+    box-shadow: 0 3px 20px -3px rgba(0,0,0,.75); 
 }
 /*Todos*/
 
@@ -241,6 +231,7 @@ a {
 }
 
 .todo-item {
+    color: #333;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -254,20 +245,21 @@ a {
     margin: 20px;
     text-align: center;
     height: auto;
-    width: 250px;
+    width: 280px;
     box-shadow: 0 3px 28px -3px rgba(0,0,0,.75);
 }
 .todoText{
     cursor: pointer;
     word-wrap: break-word;
-    padding: 20px 5px;
+    padding: 30px 5px;
+    font-size: 18px;
 }
 .toggleCompleted{
     margin-top: 20px;
     width: 100%;
     text-transform: uppercase;
     padding: 8px;
-    font-size: 16px;
+    font-size: 18px;
     border: none;
     border-top: white 1px solid;
     color: white;
@@ -281,7 +273,7 @@ a {
     width: 100%;
     text-transform: uppercase;
     padding: 8px;
-    font-size: 16px;
+    font-size: 18px;
     border: none;
     border-top: white 1px solid;
     color: white;
@@ -302,12 +294,94 @@ a {
 }
 .changeTodoTextActive {
     display: block;
-    font-size: 16px;
-    padding: 20px 5px;
+    font-size: 18px;
+    padding: 30px 5px;
     text-align: center;
     outline: none;
     border: none;
 }
 .todoTextInactive{
     display: none;
+}                               
+                                /*Mobile Min-Width 768px*/
+@media (min-width: 768px){
+#newTodoInput{
+    height: 40px;
+    font-size: 24px;
+    width: 320px;
+}
+
+.todo-item {
+    width: 320px;
+    
+}
+.changeTodoTextActive {
+    padding: 40px 5px;
+    font-size: 20px;
+}
+.todoText{
+    padding: 40px 5px;
+    font-size: 20px;
+} 
+    
+}                                
+                               
+                                /*Mobile Min-Width 1024px*/
+                                
+@media (min-width: 1024px){
+/*Universal Styles*/
+.controlpanel-wrapper h1{
+    font-size: 38px;
+}
+/*Controls*/
+#newTodoInput{
+    height: 50px;
+    width: 380px;
+    font-size: 26px;
+}
+#toggleAllButton{
+    font-size: 18px;
+    width: 135px;
+}
+#deleteAllButton{
+    font-size: 18px;
+    width:135px;
+}
+#todoCounter p{
+    font-size: 22px;
+}
+#displayOptions li {
+    font-size: 22px;
+}
+/*todo items*/
+.todo-item {
+   font-size: 26px;
+   width: 350px;
+}
+.todoText{
+    font-size: 26px;
+    padding: 60px 5px;
+}
+.changeTodoTextActive {
+    padding: 60px 5px;
+    font-size: 26px;
+}
+                                /*Mobile Min-Width 1350px*/
+}
+@media (min-width: 1350px){
+/*Universal Styles*/
+.controlpanel-wrapper h1{
+    font-size: 46px;
+}
+#newTodoInput{
+    height: 50px;
+    width: 400px;
+    font-size: 26px;
+}
+
+#displayOptions li {
+    font-size: 24px;
+    
+}
+
 }
